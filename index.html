@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English with Mixlass - Interactive Exercises</title>
+    <style>
+        :root {
+            --orange: #FF6700;
+            --dark-orange: #CC5300;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: var(--orange);
+            font-size: 2.5em;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .header p {
+            color: var(--dark-gray);
+            font-size: 1.2em;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .exercise-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .exercise-section h2 {
+            font-size: 1.8em;
+            color: var(--orange);
+            margin-top: 0;
+            border-bottom: 2px solid var(--orange);
+            padding-bottom: 10px;
+        }
+        
+        .instruction {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .task {
+            margin-bottom: 20px;
+        }
+
+        .task label, .task p {
+            font-size: 1.1em;
+        }
+        
+        .task select, .task input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+            width: auto;
+            display: inline-block;
+            margin-left: 5px;
+        }
+
+        .task input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .task .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .task .option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .task .option:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .image-container {
+            float: right;
+            margin-left: 20px;
+            margin-bottom: 20px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: #ccc;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .text-with-image {
+            overflow: hidden; /* Clearfix */
+        }
+
+        .check-buttons {
+            text-align: center;
+            margin-top: 40px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+
+        .check-buttons button {
+            padding: 12px 25px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        #check-btn {
+            background-color: var(--orange);
+            color: white;
+        }
+
+        #check-btn:hover {
+            background-color: var(--dark-orange);
+            transform: translateY(-2px);
+        }
+
+        #reset-btn {
+            background-color: #ccc;
+            color: var(--dark-gray);
+        }
+
+        #reset-btn:hover {
+            background-color: #bbb;
+            transform: translateY(-2px);
+        }
+        
+        .feedback {
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .correct {
+            color: #28a745;
+        }
+        
+        .incorrect {
+            color: #dc3545;
+        }
+        
+        .explanation {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            .header h1 {
+                font-size: 2em;
+            }
+            .exercise-section h2 {
+                font-size: 1.5em;
+            }
+            .image-container {
+                float: none;
+                margin: 0 auto 20px;
+            }
+            .check-buttons button {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>English with Mixlass</h1>
+    <p>LEARN. SHARE. CONNECT</p>
+</div>
+
+<div class="container">
+
+    <!-- Exercise B (from Screenshot 2025-09-05 at 02.31.51.jpg) -->
+    <div class="exercise-section">
+        <h2>B Choose the correct words to complete the text.</h2>
+        <div class="task">
+            <p>My brother is a nurse and he <span class="dropdown-wrapper">
+                <select id="qB1">
+                    <option value="">-</option>
+                    <option value="work">work</option>
+                    <option value="works">works</option>
+                </select>
+            </span> at a hospital in our city. He <span class="dropdown-wrapper">
+                <select id="qB2">
+                    <option value="">-</option>
+                    <option value="start">start</option>
+                    <option value="starts">starts</option>
+                </select>
+            </span> work at 10 a.m. every day and <span class="dropdown-wrapper">
+                <select id="qB3">
+                    <option value="">-</option>
+                    <option value="finishes">finishes</option>
+                    <option value="finish">finish</option>
+                </select>
+            </span> at 9 p.m. On Saturdays, when he <span class="dropdown-wrapper">
+                <select id="qB4">
+                    <option value="">-</option>
+                    <option value="doesn't">doesn't</option>
+                    <option value="isn't">isn't</option>
+                </select>
+            </span> at the hospital, he <span class="dropdown-wrapper">
+                <select id="qB5">
+                    <option value="">-</option>
+                    <option value="eats">eats</option>
+                    <option value="eat">eat</option>
+                </select>
+            </span> lunch at a café with friends. I usually <span class="dropdown-wrapper">
+                <select id="qB6">
+                    <option value="">-</option>
+                    <option value="visit">visit</option>
+                    <option value="visits">visits</option>
+                </select>
+            </span> him on Sundays and we <span class="dropdown-wrapper">
+                <select id="qB7">
+                    <option value="">-</option>
+                    <option value="play">play</option>
+                    <option value="plays">plays</option>
+                </select>
+            </span> tennis and <span class="dropdown-wrapper">
+                <select id="qB8">
+                    <option value="">-</option>
+                    <option value="cook">cook</option>
+                    <option value="cooks">cooks</option>
+                </select>
+            </span> lunch together. On Sunday evenings he <span class="dropdown-wrapper">
+                <select id="qB9">
+                    <option value="">-</option>
+                    <option value="study">study</option>
+                    <option value="studies">studies</option>
+                </select>
+            </span> Italian for an hour and then <span class="dropdown-wrapper">
+                <select id="qB10">
+                    <option value="">-</option>
+                    <option value="go">go</option>
+                    <option value="goes">goes</option>
+                </select>
+            </span> to bed early.</p>
+        </div>
+    </div>
+
+    <!-- Exercise B (Screenshot 2025-09-05 at 02.31.41.png) -->
+    <div class="exercise-section">
+        <h2>B Choose the correct word to complete the sentences.</h2>
+        <div class="task" id="taskB2_1">
+            <p>1 Do you <span id="qB_2_1_ans"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></span> out a lot at the weekend?</p>
+            <div class="options">
+                <label class="option"><input type="radio" name="qB_2_1_opt" value="live"> a live</label>
+                <label class="option"><input type="radio" name="qB_2_1_opt" value="go"> b go</label>
+                <label class="option"><input type="radio" name="qB_2_1_opt" value="get up"> c get up</label>
+            </div>
+        </div>
+        <div class="task" id="taskB2_2">
+            <p>2 I <span id="qB_2_2_ans"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></span> from home, not in an office.</p>
+            <div class="options">
+                <label class="option"><input type="radio" name="qB_2_2_opt" value="work"> a work</label>
+                <label class="option"><input type="radio" name="qB_2_2_opt" value="play"> b play</label>
+                <label class="option"><input type="radio" name="qB_2_2_opt" value="live"> c live</label>
+            </div>
+        </div>
+        <div class="task" id="taskB2_3">
+            <p>3 At the weekend I usually <span id="qB_2_3_ans"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></span> running.</p>
+            <div class="options">
+                <label class="option"><input type="radio" name="qB_2_3_opt" value="play"> a play</label>
+                <label class="option"><input type="radio" name="qB_2_3_opt" value="have"> b have</label>
+                <label class="option"><input type="radio" name="qB_2_3_opt" value="go"> c go</label>
+            </div>
+        </div>
+        <div class="task" id="taskB2_4">
+            <p>4 We <span id="qB_2_4_ans"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></span> in a small village.</p>
+            <div class="options">
+                <label class="option"><input type="radio" name="qB_2_4_opt" value="have"> a have</label>
+                <label class="option"><input type="radio" name="qB_2_4_opt" value="go"> b go</label>
+                <label class="option"><input type="radio" name="qB_2_4_opt" value="live"> c live</label>
+            </div>
+        </div>
+        <div class="task" id="taskB2_5">
+            <p>5 Do you <span id="qB_2_5_ans"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></span> tennis?</p>
+            <div class="options">
+                <label class="option"><input type="radio" name="qB_2_5_opt" value="play"> a play</label>
+                <label class="option"><input type="radio" name="qB_2_5_opt" value="go"> b go</label>
+                <label class="option"><input type="radio" name="qB_2_5_opt" value="have"> c have</label>
+            </div>
+        </div>
+        <div class="task" id="taskB2_6">
+            <p>6 We need to <span id="qB_2_6_ans"><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></span> up early tomorrow.</p>
+            <div class="options">
+                <label class="option"><input type="radio" name="qB_2_6_opt" value="live"> a live</label>
+                <label class="option"><input type="radio" name="qB_2_6_opt" value="get"> b get</label>
+                <label class="option"><input type="radio" name="qB_2_6_opt" value="have"> c have</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exercise A (Screenshot 2025-09-05 at 02.31.37.png) -->
+    <div class="exercise-section">
+        <h2>A Match (1–8) with (a–h) to make sentences.</h2>
+        <div class="task">
+            <p>1 I'd like to play 
+                <select id="qA_3_1">
+                    <option value="">-</option>
+                    <option value="a">a</option>
+                    <option value="b">b</option>
+                    <option value="c">c</option>
+                    <option value="d">d</option>
+                    <option value="e">e</option>
+                    <option value="f">f</option>
+                    <option value="g">g</option>
+                    <option value="h">h</option>
+                </select>
+            </p>
+            <p>2 Jiya and Carlos study business 
+                <select id="qA_3_2">
+                    <option value="">-</option>
+                    <option value="a">a</option>
+                    <option value="b">b</option>
+                    <option value="c">c</option>
+                    <option value="d">d</option>
+                    <option value="e">e</option>
+                    <option value="f">f</option>
+                    <option value="g">g</option>
+                    <option value="h">h</option>
+                </select>
+            </p>
+            <p>3 We teach 
+                <select id="qA_3_3">
+                    <option value="">-</option>
+                    <option value="a">a</option>
+                    <option value="b">b</option>
+                    <option value="c">c</option>
+                    <option value="d">d</option>
+                    <option value="e">e</option>
+                    <option value="f">f</option>
+                    <option value="g">g</option>
+                    <option value="h">h</option>
+                </select>
+            </p>
+            <p>4 I work 
+                <select id="qA_3_4">
+                    <option value="">-</option>
+                    <option value="a">a</option>
+                    <option value="b">b</option>
+                    <option value="c">c</option>
+                    <option value="d">d</option>
+                    <option value="e">e</option>
+                    <option value="f">f</option>
+                    <option value="g">g</option>
+                    <option value="h">h</option>
+                </select>
+            </p>
+            <p>5 You live 
+                <select id="qA_3_5">
+                    <option value="">-</option>
+                    <option value="a">a</option>
+                    <option value="b">b</option>
+                    <option value="c">c</option>
+                    <option value="d">d</option>
+                    <option value="e">e</option>
+                    <option value="f">f</option>
+                    <option value="g">g</option>
+                    <option value="h">h</option>
+                </select>
+            </p>
+            <p>6 Do they have 
+                <select id="qA_3_6">
+                    <option value="">-</option>
+                    <option value="a">a</option>
+                    <option value="b">b</option>
+                    <option value="c">c</option>
+                    <option value="d">d</option>
+                    <option value="e">e</option>
+                    <option value="f">f</option>
+                    <option value="g">g</option>
+                    <option value="h">h</option>
+                </select>
+            </p>
+            <p>7 I always go 
+                <select id="qA_3_7">
+                    <option value="">-</option>
+                    <option value="a">a</option>
+                    <option value="b">b</option>
+                    <option value="c">c</option>
+                    <option value="d">d</option>
+                    <option value="e">e</option>
+                    <option value="f">f</option>
+                    <option value="g">g</option>
+                    <option value="h">h</option>
+                </select>
+            </p>
+            <p>8 At the weekend, I get up 
+                <select id="qA_3_8">
+                    <option value="">-</option>
+                    <option value="a">a</option>
+                    <option value="b">b</option>
+                    <option value="c">c</option>
+                    <option value="d">d</option>
+                    <option value="e">e</option>
+                    <option value="f">f</option>
+                    <option value="g">g</option>
+                    <option value="h">h</option>
+                </select>
+            </p>
+        </div>
+        <div class="task">
+            <p>a and economics at university.</p>
+            <p>b a car?</p>
+            <p>c late.</p>
+            <p>d from home two days a week.</p>
+            <p>e guitar.</p>
+            <p>f to bed early on Sundays.</p>
+            <p>g students from lots of countries.</p>
+            <p>h alone in a small flat.</p>
+        </div>
+    </div>
+
+    <!-- Exercise 2A (Screenshot 2025-09-05 at 02.31.47.png) -->
+    <div class="exercise-section">
+        <h2>GRAMMAR <br>present simple: he, she, it</h2>
+        <h3>2A The sentences below have a mistake. Choose the best option to correct the mistake.</h3>
+        <div class="task" id="taskA4_1">
+            <p>1 What time <u>your brother finishes</u> work?</p>
+            <div class="options">
+                <label class="option"><input type="radio" name="qA_4_1_opt" value="is your brother finish"> a is your brother finish</label>
+                <label class="option"><input type="radio" name="qA_4_1_opt" value="does your brother finish"> b does your brother finish</label>
+                <label class="option"><input type="radio" name="qA_4_1_opt" value="your brother finish"> c your brother finish</label>
+            </div>
+            <p class="answer-placeholder"></p>
+        </div>
+        <div class="task" id="taskA4_2">
+            <p>2 Kate and her friends <u>lives</u> together.</p>
+            <div class="options">
+                <label class="option"><input type="radio" name="qA_4_2_opt" value="live"> a live</label>
+                <label class="option"><input type="radio" name="qA_4_2_opt" value="are live"> b are live</label>
+                <label class="option"><input type="radio" name="qA_4_2_opt" value="is live"> c is live</label>
+            </div>
+            <p class="answer-placeholder"></p>
+        </div>
+        <div class="task" id="taskA4_3">
+            <p>3 Robin <u>don't</u> go out a lot.</p>
+            <div class="options">
+                <label class="option"><input type="radio" name="qA_4_3_opt" value="isn't"> a isn't</label>
+                <label class="option"><input type="radio" name="qA_4_3_opt" value="aren't"> b aren't</label>
+                <label class="option"><input type="radio" name="qA_4_3_opt" value="doesn't"> c doesn't</label>
+            </div>
+            <p class="answer-placeholder"></p>
+        </div>
+        <div class="task" id="taskA4_4">
+            <p>4 Your children <u>like</u> their school?</p>
+            <div class="options">
+                <label class="option"><input type="radio" name="qA_4_4_opt" value="Do your children"> a Do your children</label>
+                <label class="option"><input type="radio" name="qA_4_4_opt" value="Does your children"> b Does your children</label>
+                <label class="option"><input type="radio" name="qA_4_4_opt" value="Are your children"> c Are your children</label>
+            </div>
+            <p class="answer-placeholder"></p>
+        </div>
+    </div>
+    
+    <div class="check-buttons">
+        <button id="check-btn">Проверить</button>
+        <button id="reset-btn">Сбросить</button>
+    </div>
+
+</div>
+
+<script>
+    const correctAnswers = {
+        // Exercise B (from Screenshot 2025-09-05 at 02.31.51.jpg)
+        'qB1': 'works',
+        'qB2': 'starts',
+        'qB3': 'finishes',
+        'qB4': 'isn\'t',
+        'qB5': 'eats',
+        'qB6': 'visit',
+        'qB7': 'play',
+        'qB8': 'cook',
+        'qB9': 'studies',
+        'qB10': 'goes',
+        
+        // Exercise B (Screenshot 2025-09-05 at 02.31.41.png)
+        'qB_2_1_opt': 'go',
+        'qB_2_2_opt': 'work',
+        'qB_2_3_opt': 'go',
+        'qB_2_4_opt': 'live',
+        'qB_2_5_opt': 'play',
+        'qB_2_6_opt': 'get',
+
+        // Exercise A (Screenshot 2025-09-05 at 02.31.37.png)
+        'qA_3_1': 'e',
+        'qA_3_2': 'a',
+        'qA_3_3': 'g',
+        'qA_3_4': 'd',
+        'qA_3_5': 'h',
+        'qA_3_6': 'b',
+        'qA_3_7': 'f',
+        'qA_3_8': 'c',
+
+        // Exercise 2A (Screenshot 2025-09-05 at 02.31.47.png)
+        'qA_4_1_opt': 'does your brother finish',
+        'qA_4_2_opt': 'live',
+        'qA_4_3_opt': 'doesn\'t',
+        'qA_4_4_opt': 'Do your children',
+    };
+    
+    const explanations = {
+        // Exercise B (from Screenshot 2025-09-05 at 02.31.51.jpg)
+        'qB1': "С местоимениями третьего лица единственного числа (he, she, it) к глаголу добавляется -s. 'He' -> 'works'.",
+        'qB2': "То же правило, что и выше. 'He' -> 'starts'.",
+        'qB3': "То же правило, что и выше. 'He' -> 'finishes'.",
+        'qB4': "Для отрицания предложения с глаголом 'to be' используется 'isn't' или 'is not'. 'He isn't at the hospital.'",
+        'qB5': "То же правило, что и выше. 'He' -> 'eats'.",
+        'qB6': "Подлежащее — 'I', которое требует базовой формы глагола. 'I' -> 'visit'.",
+        'qB7': "Подлежащее — 'we', которое требует базовой формы глагола. 'We' -> 'play'.",
+        'qB8': "То же правило, что и выше. 'We' -> 'cook'.",
+        'qB9': "С местоимениями третьего лица единственного числа (he, she, it) 'y' меняется на 'ies'. 'He' -> 'studies'.",
+        'qB10': "То же правило, что и выше. 'He' -> 'goes'.",
+        
+        // Exercise B (Screenshot 2025-09-05 at 02.31.41.png)
+        'qB_2_1_opt': "'Go out' — фразовый глагол, означающий покидать дом, чтобы развлечься.",
+        'qB_2_2_opt': "Контекст 'not in an office' подразумевает место работы, поэтому 'work' — правильный глагол.",
+        'qB_2_3_opt': "Для этого вида деятельности используется фраза 'go running'.",
+        'qB_2_4_opt': "'Live' — правильный глагол для описания места жительства.",
+        'qB_2_5_opt': "'Play' используется для видов спорта с мячом, например, тенниса.",
+        'qB_2_6_opt': "'Get up' — распространённый фразовый глагол, означающий вставать с постели.",
+
+        // Exercise A (Screenshot 2025-09-05 at 02.31.37.png)
+        'qA_3_1': "'Play guitar' — распространённое словосочетание.",
+        'qA_3_2': "Фраза 'study business and economics' — логическая связка.",
+        'qA_3_3': "'Teach students' — правильная и распространённая фраза.",
+        'qA_3_4': "'Work from home' — распространённое выражение.",
+        'qA_3_5': "'Live alone' — распространённая фраза для описания жизненной ситуации.",
+        'qA_3_6': "'Do they have a car?' — правильная структура вопроса с 'have'.",
+        'qA_3_7': "'Go to bed early' — распространённая фраза.",
+        'qA_3_8': "'Get up late' — распространённая фраза для описания времени пробуждения.",
+
+        // Exercise 2A (Screenshot 2025-09-05 at 02.31.47.png)
+        'qA_4_1_opt': "Для вопросов в Present Simple с 'he, she, it' мы используем 'does' + базовую форму глагола ('finish').",
+        'qA_4_2_opt': "Подлежащее 'Kate and her friends' во множественном числе, поэтому глагол должен быть в базовой форме 'live'.",
+        'qA_4_3_opt': "Для отрицательных предложений с 'he, she, it' мы используем 'doesn't' + базовую форму глагола ('go').",
+        'qA_4_4_opt': "Подлежащее 'Your children' во множественном числе, поэтому для вопросов мы используем 'Do'.",
+    };
+
+    document.getElementById('check-btn').addEventListener('click', checkAnswers);
+    document.getElementById('reset-btn').addEventListener('click', resetAnswers);
+
+    function normalizeText(text) {
+        if (text === null || typeof text === 'undefined') {
+            return '';
+        }
+        // Normalize for case, whitespace, and punctuation
+        return text.toString().toLowerCase().trim().replace(/['"`,\.?!]/g, '').replace(/\s+/g, ' ');
+    }
+
+    function checkAnswers() {
+        const tasks = document.querySelectorAll('.task');
+        
+        tasks.forEach(task => {
+            // Remove previous feedback
+            const existingFeedback = task.querySelector('.feedback');
+            if (existingFeedback) {
+                existingFeedback.remove();
+            }
+            const existingExplanation = task.querySelector('.explanation');
+            if (existingExplanation) {
+                existingExplanation.remove();
+            }
+
+            let isCorrect = true;
+            let questionId = '';
+            let userAnswer = '';
+            
+            // Check dropdowns and text inputs
+            const textInputs = task.querySelectorAll('select, input[type="text"]');
+            if (textInputs.length > 0) {
+                textInputs.forEach(input => {
+                    questionId = input.id;
+                    userAnswer = normalizeText(input.value);
+                    const correctAnswer = normalizeText(correctAnswers[questionId]);
+                    if (userAnswer !== correctAnswer) {
+                        isCorrect = false;
+                        addFeedback(input, isCorrect, questionId);
+                    } else {
+                        addFeedback(input, isCorrect);
+                    }
+                });
+            }
+
+            // Check radio buttons
+            const radioGroups = task.querySelectorAll('input[type="radio"]');
+            if (radioGroups.length > 0) {
+                const radioGroupName = radioGroups[0].name;
+                questionId = radioGroupName;
+                const checkedRadio = task.querySelector(`input[name="${radioGroupName}"]:checked`);
+                userAnswer = checkedRadio ? normalizeText(checkedRadio.value) : '';
+                const correctAnswer = normalizeText(correctAnswers[questionId]);
+                
+                // For radio buttons, the answer goes into the span
+                const answerSpan = task.querySelector(`#${questionId.replace('_opt', '_ans')}`);
+                if (answerSpan) {
+                    answerSpan.innerHTML = correctAnswer;
+                }
+                
+                if (userAnswer !== correctAnswer) {
+                    isCorrect = false;
+                } else {
+                    isCorrect = true;
+                }
+                
+                // For radio buttons, the feedback is added to the placeholder
+                const placeholder = task.querySelector('p');
+                addFeedback(placeholder, isCorrect, questionId);
+            }
+        });
+    }
+
+    function addFeedback(element, isCorrect, id = '') {
+        // Check if feedback already exists for this element
+        if (element.querySelector('.feedback')) {
+            return;
+        }
+
+        let feedbackElement = document.createElement('span');
+        feedbackElement.classList.add('feedback');
+        
+        let explanationElement = document.createElement('div');
+        explanationElement.classList.add('explanation');
+        
+        if (isCorrect) {
+            feedbackElement.textContent = ' ✅';
+            feedbackElement.classList.add('correct');
+        } else {
+            feedbackElement.textContent = ' ❌';
+            feedbackElement.classList.add('incorrect');
+            if (explanations[id]) {
+                explanationElement.textContent = `Правильный ответ: ${correctAnswers[id]}. ${explanations[id]}`;
+            }
+        }
+
+        // Corrected logic to handle different element types properly
+        let parentElement = element.tagName === 'SELECT' || element.type === 'text' ? element.closest('p') : element;
+        
+        parentElement.appendChild(feedbackElement);
+        if (explanationElement.textContent) {
+            parentElement.appendChild(explanationElement);
+        }
+    }
+
+    function resetAnswers() {
+        const allInputs = document.querySelectorAll('input, select');
+        allInputs.forEach(input => {
+            if (input.type === 'text' || input.tagName === 'SELECT') {
+                input.value = '';
+            } else if (input.type === 'radio') {
+                input.checked = false;
+            }
+        });
+        const allSpans = document.querySelectorAll('.task span[id]');
+        allSpans.forEach(span => {
+             // Reset radio button spans with a placeholder
+            const placeholderId = span.id;
+            if (placeholderId.includes('_ans')) {
+                 span.innerHTML = '<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>';
+            }
+        });
+        const feedbackElements = document.querySelectorAll('.feedback, .explanation');
+        feedbackElements.forEach(el => el.remove());
+    }
+</script>
+
+</body>
+</html>
